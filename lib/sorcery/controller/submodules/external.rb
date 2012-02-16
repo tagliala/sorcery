@@ -85,7 +85,7 @@ module Sorcery
               end
             end
             user_class.transaction do
-              @user = user_class.new()
+              @user = user_class.find_or_initialize_by_email(attrs[:email])
               attrs.each do |k,v|
                 @user.send(:"#{k}=", v)
               end
