@@ -85,7 +85,7 @@ module Sorcery
               end
             end
             user_class.transaction do         
-              @user = user_class.where(:email => attrs[:email]) if attrs[:email]
+              @user = user_class.where(:email => attrs[:email]).first if attrs[:email]
               @user = user_class.new() unless @user
               attrs.each do |k,v|
                 @user.send(:"#{k}=", v)
