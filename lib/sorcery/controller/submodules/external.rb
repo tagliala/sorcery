@@ -84,8 +84,9 @@ module Sorcery
                 attrs.merge!(k => @user_hash[:user_info][v])
               end
             end
-            user_class.transaction do
-              @user = user_class.find_or_initialize_by_email(attrs[:email])
+            user_class.transaction do         
+              @user = user_class.where(:email => attrs[:email]) if attrs[:email]
+              @user = user_class.new() unless @user
               attrs.each do |k,v|
                 @user.send(:"#{k}=", v)
               end
